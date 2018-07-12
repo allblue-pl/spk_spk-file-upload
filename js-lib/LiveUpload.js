@@ -30,9 +30,8 @@ export default class LiveUpload extends spocky.Module
     constructor(listeners, texts = {})
     { super();
         js0.args(arguments, js0.Preset({
-            onClick: 'function',
             onDelete: 'function',
-            onLink: 'function',
+            onInsert: 'function',
             onUpload: 'function',
         }), js0.Preset({
             upload: [ 'string', js0.Default('Upload') ],
@@ -86,6 +85,19 @@ export default class LiveUpload extends spocky.Module
         this.l.$elems.upload.addEventListener('click', (evt) => {
             evt.preventDefault();
             this._fileUpload.upload();
+        });
+        this.l.$elems.link_Text((elem, keys) => {
+            elem.addEventListener('click', (evt) => {
+                evt.preventDefault();
+                this._listeners.onInsert(this.files.get(keys[0]));
+            });
+        });
+        this.l.$elems.link_Image((elem, keys) => {
+            elem.addEventListener('click', (evt) => {
+                evt.preventDefault();
+
+                this._listeners.onInsert(this.files.get(keys[0]));
+            });
         });
         this.l.$elems.delete((elem, keys) => {
             elem.addEventListener('click', (evt) => {
