@@ -27,28 +27,28 @@ export function init() {
 export default class LiveUpload extends spocky.Module
 {
 
-    constructor(listeners, texts = {})
+    constructor(title, listeners, exts = '*', texts = {})
     { super();
-        js0.args(arguments, js0.Preset({
+        js0.args(arguments, 'string', js0.Preset({
             onDelete: 'function',
             onInsert: 'function',
             onUpload: 'function',
-        }), js0.Preset({
-            upload: [ 'string', js0.Default('Upload') ],
-            delete: [ 'string', js0.Default('Delete') ],
-        }));
+                }), [ 'string', js0.Default ], [ 'object', js0.Default ]);
 
         init();
 
+        this._title = title;
+        this._listeners = listeners;
+        this._texts = texts;
+
         this.l = null;
         this.files = new Map();
-        this._listeners = listeners;        
 
         this._fileUpload = new spkFileUpload.FileUpload((files) => {
             this._listeners.onUpload(files);
-                }, '.jpg, .jpeg, .png, .gif', true);
+                }, exts, true);
 
-        this._createLayout(texts);
+        this._createLayout();
         this._createElems();
 
         this.$view = this.l;
@@ -71,6 +71,7 @@ export default class LiveUpload extends spocky.Module
             id: [ 'number', 'string' ],
             title: 'string',
             uri: 'string',
+            imgUri: 'string',
         }));
 
         this.files.set(fileInfo.id, fileInfo);
@@ -102,7 +103,6 @@ export default class LiveUpload extends spocky.Module
         this.l.$elems.delete((elem, keys) => {
             elem.addEventListener('click', (evt) => {
                 evt.preventDefault();
-                console.log(this.l.$fields);
                 this._listeners.onDelete(this.files.get(keys[0]));
             });
         });
@@ -138,13 +138,18 @@ export default class LiveUpload extends spocky.Module
         });
     }
 
-    _createLayout(texts)
+    _createLayout()
     {
         this.l = new $layouts.Files();
+        
+        this.l.$fields = {
+            title: this._title,
+            text: (text) => {
+                return text in this._texts ? this._texts[text] : `#${text}#`;
+            },
+        }
 
         this.l.$holders.fileUpload.$view = this._fileUpload;
-
-        this.l.$fields.texts = texts;
     }
 
 }

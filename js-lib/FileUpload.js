@@ -24,7 +24,7 @@ export default class FileUpload extends spocky.Module
 
     upload()
     {
-        var event = document.createEvent('MouseEvents');
+        let event = document.createEvent('MouseEvents');
         event.initEvent('click', true, true);
         this.l.$elems.fileInput.dispatchEvent(event);
     }
