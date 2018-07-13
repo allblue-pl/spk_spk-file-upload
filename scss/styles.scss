@@ -5,27 +5,37 @@
 	$tile-padding: 10px;
 	$tile-border: 3px;
 
-	.checkboxField {
-		width: auto;
-		padding-right: 5px;
-	}
-
-	.file-input {
-	// 	position: relative;
-	// 	padding: 15px;
-	// 	background-color: #fff;
-	// 	border: 3px solid #fff;
-	// 	width: 100%;
-	// 	min-height: 60px;
-	// 	.btn-group {
-	// 		margin-bottom: 15px;
-	// 	}
-	}
-
-    .images {
+    .files {
         width: 100%;
         min-height: $tile-height + ($tile-border * 2);
 		border: 3px solid #fff;
+
+		.file-holder {
+			padding: 0px 16px;
+			.alert {
+				margin-bottom: 5px;
+				padding: 5px 0px;
+				a {
+					color: #3c763d;
+				}
+			}
+			.alert:hover {
+				background-color: darken(#dff0d8, 10%);
+			}
+			.file-displayer {
+
+			}
+			.file-manager {
+				text-align: right;
+				a {
+					padding: 0px 5px;
+				}
+			}
+		}
+
+		i {
+			padding-right: 5px;
+		}
 
         .image-holder {
 			width: $tile-width;
@@ -38,10 +48,6 @@
 				width: round(($tile-width - 2 * $tile-padding) / 3);
 				overflow: hidden;
 			}
-
-        	 i {
-				 padding-right: 5px;
-        	 }
 
 			 .image-displayer {
 				 img {
