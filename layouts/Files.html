@@ -9,26 +9,28 @@
     </div>
     <div class="card-body p-0">
         <div class="spk-e-images">
-            <span _show="loading">$text('texts_Loading')</span>
+            <div _show="loading" class="files-loader">
+                    $text('texts_Loading')
+            </div>
 
             <!-- <div _holder="fileInput" class="file-loader"></div> -->
             <div _elem="files" class="files $class">
                 <!-- Images -->
                 <div _repeat="files:file" _show="type.isImage" class="image-holder">
-                    <div class="image-displayer mb-1">
+                    <div class="image-displayer mb-1" style="background-image: url('${file.imgUri}?t=${timestamp}');'">
                         <a _elem="images_Link_Image" href="">
-                            <img src="${file.imgUri}?t=${timestamp}" alt="$file.title" />
+                            <img src="/dev/node_modules/spk-file-upload/images/dummy.png" alt="" />
                         </a>
                     </div>
-                    <a _elem="images_Link_Text" class="file-option" href="">
+                    <a _elem="images_Link_Text" class="image-option" href="">
                         <i class="fa fa-image" aria-hidden="true"></i>
                         $text('buttons_Insert')
                     </a>
-                    <a _elem="images_Copy" class="file-option text-center" href="">
+                    <a _elem="images_Copy" class="image-option text-center" href="">
                         <i class="fa fa-link" aria-hidden="true"></i>
                         $text('buttons_Copy')
                     </a>
-                    <a _elem="images_Delete" class="file-option text-right" href="">
+                    <a _elem="images_Delete" class="image-option text-right" href="">
                         <i class="fa fa-times text-danger" aria-hidden="true"></i>
                         $text('buttons_Delete')
                     </a>
@@ -37,13 +39,13 @@
                 <!-- Files -->
                 <div _repeat="files:file" _show="type.isFile" class="file-holder">
                     <div class="row alert alert-success">
-                        <div class="col-sm-6 file-displayer">
+                        <div class="col-sm-12 file-displayer">
                             <a _elem="files_Link_Image" href="">
                                 <i class="far fa-file" aria-hidden="true"></i>
                                 $file.title
                             </a>
                         </div>
-                        <div class="col-sm-6 file-manager">
+                        <div class="col-sm-12 file-manager">
                             <a _elem="files_Link_Text" class="" href="">
                                 <i class="fa fa-image" aria-hidden="true"></i>
                                 $text('buttons_Insert')

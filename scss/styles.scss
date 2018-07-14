@@ -5,6 +5,12 @@
 	$tile-padding: 10px;
 	$tile-border: 3px;
 
+	.files-loader {
+		position: absolute;
+		top: 60px;
+		left: 15px;
+	}
+
     .files {
         width: 100%;
         min-height: $tile-height + ($tile-border * 2);
@@ -22,13 +28,20 @@
 			.alert:hover {
 				background-color: darken(#dff0d8, 10%);
 			}
-			.file-displayer {
 
-			}
 			.file-manager {
 				text-align: right;
+				margin-top: 5px;
+				padding-top: 5px;
+				border-top: 1px solid #fff;
 				a {
 					padding: 0px 5px;
+				}
+				a:hover {
+					text-decoration: underline;
+				}
+				a:first-of-type {
+					padding-left: 0px;
 				}
 			}
 		}
@@ -50,13 +63,18 @@
 			}
 
 			 .image-displayer {
+				 background-position: center;
+				 background-size: cover;
 				 img {
 					 border: 1px solid $gray-300;
 					 width: $tile-width;
 					 height: $tile-height - 50px;
 				 }
 			 }
-        }
+		}
+		@include media-breakpoint-down(lg) {
+
+		}
     }
 
 	.single-image {
