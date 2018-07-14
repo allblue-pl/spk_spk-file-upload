@@ -27,18 +27,22 @@ export function init() {
 export default class LiveUpload extends spocky.Module
 {
 
-    constructor(title, listeners, exts = '*', texts = {})
+    constructor(title, displayType, listeners, exts = '*', texts = {})
     { super();
-        js0.args(arguments, 'string', js0.Preset({
+        js0.args(arguments, 'string', 'string', js0.Preset({
             onDelete: 'function',
             onInsert: 'function',
             onUpload: 'function',
                 }), [ 'string', js0.Default ], [ 'object', js0.Default ]);
 
+        if (![ 'file', 'image' ].includes(displayType))
+                throw new Error(`Unknown display type '${displayType}'.`);
+
         init();
 
         this._title = title;
         this._listeners = listeners;
+        this._displayType = displayType;
         this._texts = texts;
 
         this.l = null;
@@ -58,6 +62,11 @@ export default class LiveUpload extends spocky.Module
     {
         this.files.delete(fileId);
         this.l.$fields.files().$delete(fileId);
+    }
+
+    hideLoading()
+    {
+        this.l.$fields.loading = false;
     }
 
     refresh()
@@ -80,6 +89,11 @@ export default class LiveUpload extends spocky.Module
         this.refresh();
     }
 
+    showLoading()
+    {
+        this.l.$fields.loading = true;
+    }
+
 
     _createElems()
     {
@@ -87,20 +101,43 @@ export default class LiveUpload extends spocky.Module
             evt.preventDefault();
             this._fileUpload.upload();
         });
-        this.l.$elems.link_Text((elem, keys) => {
+
+        /* Images */
+        this.l.$elems.images_Link_Text((elem, keys) => {
             elem.addEventListener('click', (evt) => {
                 evt.preventDefault();
                 this._listeners.onInsert(this.files.get(keys[0]));
             });
         });
-        this.l.$elems.link_Image((elem, keys) => {
+        this.l.$elems.images_Link_Image((elem, keys) => {
             elem.addEventListener('click', (evt) => {
                 evt.preventDefault();
 
                 this._listeners.onInsert(this.files.get(keys[0]));
             });
         });
-        this.l.$elems.delete((elem, keys) => {
+        this.l.$elems.images_Delete((elem, keys) => {
+            elem.addEventListener('click', (evt) => {
+                evt.preventDefault();
+                this._listeners.onDelete(this.files.get(keys[0]));
+            });
+        });
+
+        /* Files */
+        this.l.$elems.files_Link_Text((elem, keys) => {
+            elem.addEventListener('click', (evt) => {
+                evt.preventDefault();
+                this._listeners.onInsert(this.files.get(keys[0]));
+            });
+        });
+        this.l.$elems.files_Link_Image((elem, keys) => {
+            elem.addEventListener('click', (evt) => {
+                evt.preventDefault();
+
+                this._listeners.onInsert(this.files.get(keys[0]));
+            });
+        });
+        this.l.$elems.files_Delete((elem, keys) => {
             elem.addEventListener('click', (evt) => {
                 evt.preventDefault();
                 this._listeners.onDelete(this.files.get(keys[0]));
@@ -144,6 +181,10 @@ export default class LiveUpload extends spocky.Module
         
         this.l.$fields = {
             title: this._title,
+            type: {
+                isFile: this._displayType === 'file',
+                isImage: this._displayType === 'image',
+            },
             text: (text) => {
                 return text in this._texts ? this._texts[text] : `#${text}#`;
             },
