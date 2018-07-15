@@ -30,6 +30,7 @@ export default class LiveUpload extends spocky.Module
     constructor(title, displayType, listeners, exts = '*', texts = {})
     { super();
         js0.args(arguments, 'string', 'string', js0.Preset({
+            onCopy: 'function',
             onDelete: 'function',
             onInsert: 'function',
             onUpload: 'function',
@@ -103,17 +104,23 @@ export default class LiveUpload extends spocky.Module
         });
 
         /* Images */
-        this.l.$elems.images_Link_Text((elem, keys) => {
+        this.l.$elems.images_Insert_Text((elem, keys) => {
             elem.addEventListener('click', (evt) => {
                 evt.preventDefault();
                 this._listeners.onInsert(this.files.get(keys[0]));
             });
         });
-        this.l.$elems.images_Link_Image((elem, keys) => {
+        this.l.$elems.images_Insert_Image((elem, keys) => {
             elem.addEventListener('click', (evt) => {
                 evt.preventDefault();
 
                 this._listeners.onInsert(this.files.get(keys[0]));
+            });
+        });
+        this.l.$elems.images_Copy((elem, keys) => {
+            elem.addEventListener('click', (evt) => {
+                evt.preventDefault();
+                this._listeners.onCopy(this.files.get(keys[0]));
             });
         });
         this.l.$elems.images_Delete((elem, keys) => {
@@ -124,17 +131,23 @@ export default class LiveUpload extends spocky.Module
         });
 
         /* Files */
-        this.l.$elems.files_Link_Text((elem, keys) => {
+        this.l.$elems.files_Insert_Text((elem, keys) => {
             elem.addEventListener('click', (evt) => {
                 evt.preventDefault();
                 this._listeners.onInsert(this.files.get(keys[0]));
             });
         });
-        this.l.$elems.files_Link_Image((elem, keys) => {
+        this.l.$elems.files_Insert_Image((elem, keys) => {
             elem.addEventListener('click', (evt) => {
                 evt.preventDefault();
 
                 this._listeners.onInsert(this.files.get(keys[0]));
+            });
+        });
+        this.l.$elems.files_Copy((elem, keys) => {
+            elem.addEventListener('click', (evt) => {
+                evt.preventDefault();
+                this._listeners.onCopy(this.files.get(keys[0]));
             });
         });
         this.l.$elems.files_Delete((elem, keys) => {
