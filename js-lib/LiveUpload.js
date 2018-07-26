@@ -59,6 +59,12 @@ export default class LiveUpload extends spocky.Module
         this.$view = this.l;
     }
 
+    deleteAllFiles()
+    {
+        this.files = new Map();
+        this.l.$fields.files = [];
+    }
+
     deleteFile(fileId)
     {
         this.files.delete(fileId);

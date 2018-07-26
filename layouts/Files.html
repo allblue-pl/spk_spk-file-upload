@@ -15,52 +15,54 @@
 
             <!-- <div _holder="fileInput" class="file-loader"></div> -->
             <div _elem="files" class="files $class">
-                <!-- Images -->
-                <div _repeat="files:file" _show="type.isImage" class="image-holder">
-                    <div class="image-displayer mb-1" style="background-image: url('${file.imgUri}?t=${timestamp}');'">
-                        <a _elem="images_Insert_Image" href="">
-                            <img src="/dev/node_modules/spk-file-upload/images/dummy.png" alt="" />
+                <$ _hide="loading">
+                    <!-- Images -->
+                    <div _repeat="files:file" _show="type.isImage" class="image-holder">
+                        <div class="image-displayer mb-1" style="background-image: url('${file.imgUri}?t=${timestamp}');'">
+                            <a _elem="images_Insert_Image" href="">
+                                <img src="/dev/node_modules/spk-file-upload/images/dummy.png" alt="" />
+                            </a>
+                        </div>
+                        <a _elem="images_Insert_Text" class="image-option" href="">
+                            <i class="fa fa-image" aria-hidden="true"></i>
+                            $text('buttons_Insert')
+                        </a>
+                        <a _elem="images_Copy" _show="notImplemented" class="image-option text-center" href="">
+                            <i class="fa fa-link" aria-hidden="true"></i>
+                            $text('buttons_Copy')
+                        </a>
+                        <a _elem="images_Delete" class="image-option text-right" href="">
+                            <i class="fa fa-times text-danger" aria-hidden="true"></i>
+                            $text('buttons_Delete')
                         </a>
                     </div>
-                    <a _elem="images_Insert_Text" class="image-option" href="">
-                        <i class="fa fa-image" aria-hidden="true"></i>
-                        $text('buttons_Insert')
-                    </a>
-                    <a _elem="images_Copy" _show="notImplemented" class="image-option text-center" href="">
-                        <i class="fa fa-link" aria-hidden="true"></i>
-                        $text('buttons_Copy')
-                    </a>
-                    <a _elem="images_Delete" class="image-option text-right" href="">
-                        <i class="fa fa-times text-danger" aria-hidden="true"></i>
-                        $text('buttons_Delete')
-                    </a>
-                </div>
-                
-                <!-- Files -->
-                <div _repeat="files:file" _show="type.isFile" class="file-holder">
-                    <div class="row alert alert-success">
-                        <div class="col-sm-12 file-displayer">
-                            <a _elem="files_Insert_Image" href="">
-                                <i class="far fa-file" aria-hidden="true"></i>
-                                $file.title
-                            </a>
-                        </div>
-                        <div class="col-sm-12 file-manager">
-                            <a _elem="files_Insert_Text" class="" href="">
-                                <i class="fa fa-image" aria-hidden="true"></i>
-                                $text('buttons_Insert')
-                            </a>
-                            <a _elem="files_Copy" _show="notImplemented" class="" href="">
-                                <i class="fa fa-link" aria-hidden="true"></i>
-                                $text('buttons_Copy')
-                            </a>
-                            <a _elem="files_Delete" class="" href="">
-                                <i class="fa fa-times text-danger" aria-hidden="true"></i>
-                                $text('buttons_Delete')
-                            </a>
+                    
+                    <!-- Files -->
+                    <div _repeat="files:file" _show="type.isFile" class="file-holder">
+                        <div class="row alert alert-success">
+                            <div class="col-sm-12 file-displayer">
+                                <a _elem="files_Insert_Image" href="">
+                                    <i class="far fa-file" aria-hidden="true"></i>
+                                    $file.title
+                                </a>
+                            </div>
+                            <div class="col-sm-12 file-manager">
+                                <a _elem="files_Insert_Text" class="" href="">
+                                    <i class="fa fa-image" aria-hidden="true"></i>
+                                    $text('buttons_Insert')
+                                </a>
+                                <a _elem="files_Copy" _show="notImplemented" class="" href="">
+                                    <i class="fa fa-link" aria-hidden="true"></i>
+                                    $text('buttons_Copy')
+                                </a>
+                                <a _elem="files_Delete" class="" href="">
+                                    <i class="fa fa-times text-danger" aria-hidden="true"></i>
+                                    $text('buttons_Delete')
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </$>
             </div>
         </div>
     </div>
