@@ -1,7 +1,6 @@
 'use strict';
 
 const
-    eLibs = require('e-libs'),
     js0 = require('js0'),
     spkFileUpload = require('spk-file-upload'),
     spocky = require('spocky'),
