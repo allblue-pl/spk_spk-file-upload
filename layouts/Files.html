@@ -1,20 +1,27 @@
 
-<div class="card border-gray mb-3">
-    <div class="card-header card-gray">
-        $title
-    <button _elem="upload" class="btn btn-primary btn-sm m-0 float-right">
-        <i class="fas fa-file-upload" aria-hidden="true"></i>
-        &nbsp;$text('buttons_Upload')
-    </button>
+<div class="card mb-3">
+    <div class="card-header">
+        <div class="row">
+            <div class="col">
+                $title
+            </div>
+            <div class="col-auto">
+                <button _elem="upload" class="btn btn-primary btn-sm m-0 float-right">
+                    <i class="fas fa-file-upload" aria-hidden="true"></i>
+                    &nbsp;$text('buttons_Upload')
+                </button>
+            </div>
+        </div>
     </div>
     <div class="card-body p-0">
         <div class="spk-e-images">
             <div _show="loading" class="files-loader">
-                    $text('texts_Loading')
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">$text('texts_Loading')</span>
+                </div>
             </div>
-
             <!-- <div _holder="fileInput" class="file-loader"></div> -->
-            <div _elem="files" class="files $class">
+            <div _elem="files" class="files-holder $class">
                 <$ _hide="loading">
                     <!-- Images -->
                     <div _repeat="files:file" _show="type.isImage" class="image-holder">
@@ -23,18 +30,23 @@
                                 <img src="/dev/node_modules/spk-file-upload/images/dummy.png" alt="" />
                             </a>
                         </div>
-                        <a _elem="images_Insert_Text" class="image-option" href="">
-                            <i class="fa fa-image" aria-hidden="true"></i>
-                            $text('buttons_Insert')
-                        </a>
-                        <a _elem="images_Copy" _show="notImplemented" class="image-option text-center" href="">
-                            <i class="fa fa-link" aria-hidden="true"></i>
-                            $text('buttons_Copy')
-                        </a>
-                        <a _elem="images_Delete" class="image-option text-right" href="">
-                            <i class="fa fa-times text-danger" aria-hidden="true"></i>
-                            $text('buttons_Delete')
-                        </a>
+                        <div class="row">
+                            <div class="col image-option">
+                                <a _elem="images_Insert_Text" href="">
+                                    <i class="fa fa-image" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <div  class="col image-option">
+                                <a _elem="images_Copy" href="">
+                                    <i class="fa fa-link" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <div class="col image-option">
+                                <a _elem="images_Delete" href="">
+                                    <i class="fa fa-times text-danger" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     
                     <!-- Files -->
