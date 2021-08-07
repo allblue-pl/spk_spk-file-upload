@@ -1,7 +1,5 @@
 
-// spk-file-upload
 $tile-width: 200px;
-$tile-height: 160px;
 $tile-padding: 10px;
 
 .spk-e-images {
@@ -12,7 +10,7 @@ $tile-padding: 10px;
 
     .files-holder {
         width: 100%;
-        min-height: $tile-height;
+        min-height: 200px;
 		border: 3px solid #fff;
 		.file-holder {
             .alert {
@@ -32,9 +30,11 @@ $tile-padding: 10px;
 		}
         .image-holder {
 			width: $tile-width;
-			height: $tile-height;
 			float: left;
 			padding: $tile-padding;
+            img {
+                max-width: 100%;
+            }
             .btn-group {
                 .btn {
                     border-radius: 0;
@@ -43,12 +43,7 @@ $tile-padding: 10px;
             .image-displayer {
                 background-position: center;
                 background-size: cover;
-                img {
-                    border: 1px solid $gray-300;
-                    width: $tile-width;
-                    height: $tile-height - 50px;
-                }
-			 }
+            }
 		}
 		@include media-breakpoint-down(lg) {
 
