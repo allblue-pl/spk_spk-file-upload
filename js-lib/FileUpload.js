@@ -10,6 +10,11 @@ const
 export default class FileUpload extends spocky.Module
 {
 
+    get files() {
+        return this._files;
+    }
+
+
     constructor(callback, extensions = '.*', multiple = false)
     { super();
         js0.args(arguments, 'function', [ 'string', js0.Default ], 
@@ -18,6 +23,8 @@ export default class FileUpload extends spocky.Module
         this._callback = callback;
         this._extensions = extensions;
         this._multiple = multiple;
+
+        this._files = [];
 
         this._createInput(callback);
     }
@@ -39,6 +46,7 @@ export default class FileUpload extends spocky.Module
         if (this._multiple)
             el.setAttribute('multiple', true);
         el.addEventListener('change', () => {
+            this._files = el.files;
             this._callback(el.files);
             this._createInput();
         });
