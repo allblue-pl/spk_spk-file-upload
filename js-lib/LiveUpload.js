@@ -85,7 +85,7 @@ export default class LiveUpload extends spocky.Module
         js0.args(arguments, js0.Preset({
             id: [ 'number', 'string' ],
             title: 'string',
-            uri: 'string',
+            uri: [ 'string', js0.Null ],
             imgUri: 'string',
         }));
 
@@ -196,7 +196,7 @@ export default class LiveUpload extends spocky.Module
     _createLayout()
     {
         this.l = new $layouts.Files();
-        
+
         this.l.$fields = {
             title: this._title,
             type: {
