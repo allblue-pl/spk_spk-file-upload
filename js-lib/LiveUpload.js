@@ -28,12 +28,15 @@ export default class LiveUpload extends spocky.Module
 
     constructor(title, displayType, listeners, exts = '*', texts = {})
     { super();
-        js0.args(arguments, 'string', 'string', js0.Preset({
+        js0.args(arguments, 'string', 'string', js0.RawObject, 
+                [ 'string', js0.Default ], [ 'object', js0.Default ]);
+
+        js0.typeE(listeners, js0.Preset({
             onCopy: 'function',
             onDelete: 'function',
             onInsert: 'function',
             onUpload: 'function',
-                }), [ 'string', js0.Default ], [ 'object', js0.Default ]);
+        }));
 
         if (![ 'file', 'image' ].includes(displayType))
                 throw new Error(`Unknown display type '${displayType}'.`);
@@ -82,7 +85,11 @@ export default class LiveUpload extends spocky.Module
 
     setFile(fileInfo)
     {
-        js0.args(arguments, js0.Preset({
+        js0.args(arguments, js0.RawObject);
+
+        console.log(fileInfo);
+
+        js0.typeE(fileInfo, js0.Preset({
             id: [ 'number', 'string' ],
             title: 'string',
             uri: [ 'string', js0.Null ],
