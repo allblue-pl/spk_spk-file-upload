@@ -2,7 +2,7 @@ import FileUpload from "./FileUpload.js";
 import { Module } from "spocky";
 import FilesLayout from "../$layouts/FilesLayout.ts";
 import abText from "ab-text";
-import { ts0, ts0Assert, type TS0Required } from "@allblue/ts0";
+import { ts0, ts0Assert, type TS0OptionalRequiredObject } from "@allblue/ts0";
 
 export default class LiveUpload extends Module {
     static #Initialized: boolean = false;
@@ -254,7 +254,7 @@ type LiveUploadConfig = {
     exts?: string,
 };
 
-type LiveUploadConfig_Parsed = TS0Required<LiveUploadConfig>;
+type LiveUploadConfig_Parsed = TS0OptionalRequiredObject<LiveUploadConfig>;
 const p_LiveUploadConfig = ts0.TPreset({
     dummyImageUri: [ "string", ts0.TDefault(
             "/dist/node_modules/spk-file-upload/images/dummy.png") ],
